@@ -75,22 +75,22 @@ python -u run_midag_spcn.py \
   --features M \
   --seq_len 96 \
   --pred_len 48 \
-  --layers 1 \
+  --layers 3 \
   --num_clusters 64 \
-  --id_dim 8 \
+  --id_dim 32 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 256 \
   --enc_in 170 \
   --batch_size 16 \
   --learning_rate 0.0003 \
   --des 'Exp' \
-  --train_epochs 100 \
+  --train_epochs 50 \
   --patience 10 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
   --loss 'MAE' \
+  --lradj cosine \
   # --weight_decay 0.0003 \
   # --use_last 1 \
   # --use_revin 1 \
