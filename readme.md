@@ -20,7 +20,7 @@
 
 > >(1) cd TaTS-main.
 
-> >(2)check your hypermeters based on fold "hypermeters_references" when facing different datasets.
+> >(2)check your hypermeters based on hypermeters references (i.e., result_*_datasets.txt) when facing different datasets.
 
 > >(3) run: nohup bash scripts/main_forecast_midag_spcn.sh > midag_spcn.log 2>&1 &
 
