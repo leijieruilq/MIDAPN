@@ -114,7 +114,7 @@ python -u run_midag_spcn.py \
   --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 1024 \
   --enc_in 10 \
   --batch_size 16 \
   --learning_rate 0.0003 \
@@ -123,9 +123,9 @@ python -u run_midag_spcn.py \
   --patience 3 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
   --loss 'MAE' \
+  --lradj cosine \
   --target "y9" \
-  --weight_decay 0.0003 \
-  --use_last 1 \
   --use_revin 1 \
+  --weight_decay 0.0003 \
+  --use_last 0 \
