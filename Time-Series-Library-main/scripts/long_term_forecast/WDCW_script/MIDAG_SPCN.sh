@@ -18,21 +18,20 @@ python -u run_midag_spcn.py \
   --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 128 \
   --enc_in 22 \
   --batch_size 16 \
-  --learning_rate 0.0003 \
+  --learning_rate 0.001 \
   --des 'Exp' \
-  --train_epochs 50 \
+  --train_epochs 10 \
   --patience 10 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
   --loss 'MAE' \
   --target 'moonphase' \
+  --use_last 1 \
+  --use_revin 1 \
   # --weight_decay 0.0003 \
-  # --use_last 1 \
-  # --use_revin 1 \
 
 python -u run_midag_spcn.py \
   --task_name long_term_forecast \
@@ -50,18 +49,19 @@ python -u run_midag_spcn.py \
   --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 128 \
   --enc_in 22 \
   --batch_size 16 \
-  --learning_rate 0.0003 \
+  --learning_rate 0.001 \
   --des 'Exp' \
-  --train_epochs 50 \
+  --train_epochs 10 \
   --patience 10 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
   --loss 'MAE' \
   --target 'moonphase' \
+  --use_last 1 \
+  --use_revin 1 \
   # --weight_decay 0.0003 \
   # --use_last 1 \
   # --use_revin 1 \
@@ -82,16 +82,15 @@ python -u run_midag_spcn.py \
   --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 128 \
   --enc_in 22 \
   --batch_size 16 \
-  --learning_rate 0.0003 \
+  --learning_rate 0.001 \
   --des 'Exp' \
-  --train_epochs 50 \
+  --train_epochs 10 \
   --patience 10 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
   --loss 'MAE' \
   --target 'moonphase' \
   # --weight_decay 0.0003 \
@@ -114,18 +113,17 @@ python -u run_midag_spcn.py \
   --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 128 \
   --enc_in 22 \
   --batch_size 16 \
-  --learning_rate 0.0003 \
+  --learning_rate 0.001 \
   --des 'Exp' \
-  --train_epochs 50 \
+  --train_epochs 10 \
   --patience 10 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
   --loss 'MAE' \
   --target 'moonphase' \
+  --use_last 1 \
+  --use_revin 1 \
   # --weight_decay 0.0003 \
-  # --use_last 1 \
-  # --use_revin 1 \
