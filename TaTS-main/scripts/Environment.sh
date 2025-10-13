@@ -1,18 +1,15 @@
 #!/bin/bash
 
-# --- 配置区 ---
 GPU=0
 root_path=./data
-seed=2025 # 将seed固定为一个值
+seed=2025
 
 all_models=("MIDAG_SPCN")
 datasets=("Environment")
 pred_lengths=(12)
-batch_sizes=(8) # 在这里设置您想测试的不同batch size
-seq_lengths=(8)    # 在这里设置您想测试的不同seq_len
-# datasets=("Traffic" "SocialGood" "Security" "Health" "Environment" "Energy" "Economy" "Climate" "Agriculture")
+batch_sizes=(8) 
+seq_lengths=(8)
 
-# --- 主循环区 ---
 current_dir=$(pwd)
 prior_weight=0.5
 text_emb=12
