@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# --- 配置区 ---
 GPU=0
 root_path=./data
 seed=2025 
@@ -11,7 +10,6 @@ pred_lengths=(12)
 batch_sizes=(64)
 seq_lengths=(8)
 
-# --- 主循环区 ---
 current_dir=$(pwd)
 prior_weight=0.5
 text_emb=12
