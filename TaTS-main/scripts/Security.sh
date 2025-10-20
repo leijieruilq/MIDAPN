@@ -50,14 +50,14 @@ do
                         --huggingface_token NA \
                         --train_epochs 10 \
                         --patience 5 \
-                        --layers 5 \
+                        --layers 1 \
                         --use_revin 1 \
                         --use_last 0 \
-                        --num_clusters 32 \
-                        --id_dim 8 \
+                        --num_clusters 8 \
+                        --id_dim 16 \
                         --cluster_dim 8 \
                         --graph_dim 8 \
-                        --d_model 512
+                        --d_model 256
                 done
             done
         done
