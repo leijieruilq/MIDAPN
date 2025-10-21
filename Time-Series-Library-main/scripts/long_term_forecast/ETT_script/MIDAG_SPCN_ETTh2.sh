@@ -14,11 +14,11 @@ python -u run_midag_spcn.py \
   --seq_len 96 \
   --pred_len 96 \
   --layers 1 \
-  --num_clusters 64 \
+  --num_clusters 16 \
   --id_dim 8 \
   --cluster_dim 8 \
-  --graph_dim 32 \
-  --d_model 512 \
+  --graph_dim 16 \
+  --d_model 128 \
   --enc_in 7 \
   --batch_size 16 \
   --learning_rate 0.0003 \
@@ -45,11 +45,11 @@ python -u run_midag_spcn.py \
   --seq_len 96 \
   --pred_len 192 \
   --layers 1 \
-  --num_clusters 64 \
+  --num_clusters 16 \
   --id_dim 8 \
   --cluster_dim 8 \
-  --graph_dim 32 \
-  --d_model 512 \
+  --graph_dim 16 \
+  --d_model 128 \
   --enc_in 7 \
   --batch_size 16 \
   --learning_rate 0.0003 \
@@ -76,11 +76,11 @@ python -u run_midag_spcn.py \
   --seq_len 96 \
   --pred_len 336 \
   --layers 1 \
-  --num_clusters 64 \
+  --num_clusters 16 \
   --id_dim 8 \
   --cluster_dim 8 \
-  --graph_dim 32 \
-  --d_model 512 \
+  --graph_dim 16 \
+  --d_model 128 \
   --enc_in 7 \
   --batch_size 16 \
   --learning_rate 0.0003 \
@@ -107,11 +107,11 @@ python -u run_midag_spcn.py \
   --seq_len 96 \
   --pred_len 720 \
   --layers 1 \
-  --num_clusters 64 \
+  --num_clusters 16 \
   --id_dim 8 \
   --cluster_dim 8 \
-  --graph_dim 32 \
-  --d_model 512 \
+  --graph_dim 16 \
+  --d_model 128 \
   --enc_in 7 \
   --batch_size 16 \
   --learning_rate 0.0003 \
