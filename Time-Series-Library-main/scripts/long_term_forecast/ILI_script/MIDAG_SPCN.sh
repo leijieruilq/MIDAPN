@@ -1,4 +1,4 @@
-export CUDA_VISIBLE_DEVICES=1
+export CUDA_VISIBLE_DEVICES=0
 
 model_name=MIDAG_SPCN
 
@@ -20,7 +20,7 @@ python -u run_midag_spcn.py \
   --graph_dim 32 \
   --d_model 512 \
   --enc_in 7 \
-  --batch_size 16 \
+  --batch_size 4 \
   --learning_rate 0.0003 \
   --des 'Exp' \
   --train_epochs 50 \
@@ -32,6 +32,7 @@ python -u run_midag_spcn.py \
   --weight_decay 0.0003 \
   --use_last 1 \
   --use_revin 1 \
+
 
 python -u run_midag_spcn.py \
   --task_name long_term_forecast \
