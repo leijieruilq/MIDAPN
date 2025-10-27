@@ -1,15 +1,18 @@
 #!/bin/bash
 
+# --- 配置区 ---
 GPU=0
 root_path=./data
-seed=2025 
+seed=2025 # 将seed固定为一个值
 
 all_models=("MIDAG_SPCN")
 datasets=("SocialGood")
 pred_lengths=(12)
-batch_sizes=(16) 
-seq_lengths=(8) 
+batch_sizes=(16) # 在这里设置您想测试的不同batch size
+seq_lengths=(8)    # 在这里设置您想测试的不同seq_len
+# datasets=("Traffic" "SocialGood" "Security" "Health" "Environment" "Energy" "Economy" "Climate" "Agriculture")
 
+# --- 主循环区 ---
 current_dir=$(pwd)
 prior_weight=0.5
 text_emb=12
@@ -51,13 +54,13 @@ do
                         --train_epochs 10 \
                         --patience 5 \
                         --layers 1 \
-                        --use_revin 1 \
+                        --use_revin 0 \
                         --use_last 1 \
-                        --num_clusters 32 \
-                        --id_dim 8 \
-                        --cluster_dim 8 \
-                        --graph_dim 32 \
-                        --d_model 512
+                        --num_clusters 4 \
+                        --id_dim 4 \
+                        --cluster_dim 16 \
+                        --graph_dim 4 \
+                        --d_model 128
                 done
             done
         done
