@@ -1,1 +1,124 @@
+export CUDA_VISIBLE_DEVICES=0
 
+model_name=MIDAG_SPCN
+
+python -u run_midag_spcn.py \
+  --task_name long_term_forecast \
+  --is_training 1 \
+  --root_path /home/ljr/raw_files/NASDQ \
+  --data_path nasdq.csv\
+  --model_id nasdq_36_24 \
+  --model $model_name \
+  --data custom \
+  --features M \
+  --seq_len 36 \
+  --pred_len 24 \
+  --layers 1 \
+  --num_clusters 32 \
+  --id_dim 8 \
+  --cluster_dim 8 \
+  --graph_dim 32 \
+  --d_model 256 \
+  --enc_in 12\
+  --batch_size 16 \
+  --learning_rate 0.001 \
+  --des 'Exp' \
+  --train_epochs 10 \
+  --patience 10 \
+  --itr 1 \
+  --gpu 0 \
+  --loss 'MAE' \
+  --target 'Oil' \
+  
+
+python -u run_midag_spcn.py \
+  --task_name long_term_forecast \
+  --is_training 1 \
+  --root_path /home/ljr/raw_files/NASDQ \
+  --data_path nasdq.csv\
+  --model_id nasdq_36_36 \
+  --model $model_name \
+  --data custom \
+  --features M \
+  --seq_len 36 \
+  --pred_len 36 \
+  --layers 1 \
+  --num_clusters 32 \
+  --id_dim 8 \
+  --cluster_dim 8 \
+  --graph_dim 32 \
+  --d_model 256 \
+  --enc_in 12\
+  --batch_size 16 \
+  --learning_rate 0.001 \
+  --des 'Exp' \
+  --train_epochs 10 \
+  --patience 10 \
+  --itr 1 \
+  --gpu 0 \
+  --loss 'MAE' \
+  --target 'Oil' \
+
+python -u run_midag_spcn.py \
+  --task_name long_term_forecast \
+  --is_training 1 \
+  --root_path /home/ljr/raw_files/NASDQ \
+  --data_path nasdq.csv\
+  --model_id nasdq_36_48 \
+  --model $model_name \
+  --data custom \
+  --features M \
+  --seq_len 36 \
+  --pred_len 48 \
+  --layers 2 \
+  --num_clusters 4 \
+  --id_dim 8 \
+  --cluster_dim 8 \
+  --graph_dim 4 \
+  --d_model 128 \
+  --enc_in 12 \
+  --batch_size 16 \
+  --learning_rate 0.0003 \
+  --des 'Exp' \
+  --train_epochs 10 \
+  --patience 3 \
+  --itr 1 \
+  --gpu 0 \
+  --loss 'MAE' \
+  --target 'Oil' \
+  --use_last 1 \
+  --use_revin 1 \
+  --lradj cosine \
+  --weight_decay 0.0003 \
+
+python -u run_midag_spcn.py \
+  --task_name long_term_forecast \
+  --is_training 1 \
+  --root_path /home/ljr/raw_files/NASDQ \
+  --data_path nasdq.csv\
+  --model_id nasdq_36_60 \
+  --model $model_name \
+  --data custom \
+  --features M \
+  --seq_len 36 \
+  --pred_len 60 \
+  --layers 4 \
+  --num_clusters 4 \
+  --id_dim 8 \
+  --cluster_dim 8 \
+  --graph_dim 4 \
+  --d_model 128 \
+  --d_model 16 \
+  --enc_in 12 \
+  --batch_size 4 \
+  --learning_rate 0.001 \
+  --des 'Exp' \
+  --train_epochs 10 \
+  --patience 3 \
+  --itr 1 \
+  --gpu 0 \
+  --loss 'MAE' \
+  --target 'Oil' \
+  --use_last 1 \
+  --use_revin 1 \
+  --weight_decay 0.0003 \
