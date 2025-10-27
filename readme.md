@@ -2,7 +2,7 @@
 
 ### Datasets
 
->> "raw_files.zip" contains 14 multivariate time series datasets while "TaTS-main/data" displays 8 multimodal time series datasets.
+>> "raw_files.zip" contains 14 multivariate time series datasets while "TaTS-main/data" displays 8 multimodal time series datasets. (Note: NASDQ is updated !)
 
 ## running programme
 
