@@ -57,7 +57,7 @@ do
                         --id_dim 32 \
                         --cluster_dim 8 \
                         --graph_dim 128 \
-                        --d_model 1024
+                        --d_model 128
                 done
             done
         done
