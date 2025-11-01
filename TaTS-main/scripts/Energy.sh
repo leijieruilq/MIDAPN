@@ -53,11 +53,11 @@ do
                         --layers 1 \
                         --use_revin 1 \
                         --use_last 0 \
-                        --num_clusters 128 \
-                        --id_dim 32 \
-                        --cluster_dim 8 \
-                        --graph_dim 128 \
-                        --d_model 128
+                        --num_clusters 16 \
+                        --id_dim 4 \
+                        --cluster_dim 16 \
+                        --graph_dim 4 \
+                        --d_model 256
                 done
             done
         done
