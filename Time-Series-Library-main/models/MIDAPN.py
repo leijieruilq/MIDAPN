@@ -117,10 +117,8 @@ class FreqConv(nn.Module):
         for i in range(self.freq_layers):
             h = F.pad(h,pad=(self.pad_front,self.pad_behid,0,0))
             h = self.Convs[i](h)
-            #np.save("conv_weight_"+str(i)+".npy", self.Convs[i].weight.cpu().detach().numpy())
             h = self.Pools[i](h)
         y = self.final_conv(h).permute(0,2,3,1) + x1 + x2
-        # np.save("conv_weight_final.npy", self.final_conv.weight.cpu().detach().numpy())
         return y
 
 class fconv(nn.Module):
@@ -186,18 +184,14 @@ class gated_mlp(nn.Module):
 class MIDGCN(nn.Module):
     def __init__(self, configs, out_len):
         super(MIDGCN, self).__init__()
-         # 1. 变量身份嵌入 (静态+动态)
         self.id_emb= nn.Embedding(configs.enc_in, configs.id_dim)
         self.dynamic_id_proj = nn.Sequential(nn.Linear(configs.d_model, configs.d_model // 2),
                                              nn.ReLU(),
                                              nn.Linear(configs.d_model // 2,configs.id_dim))
-        # 2. 可学习的聚类中心，通过 nn.Embedding 实现，其 .weight 属性即为聚类中心
         self.cluster_emb = nn.Embedding(configs.num_clusters, configs.cluster_dim)
-        # 3. 用于将身份嵌入投影到与聚类中心进行相似度计算的空间（可选，但常用于匹配维度或增加表达力）
         self.id_to_cluster = nn.Linear(configs.id_dim, configs.cluster_dim)
         self.neg_inf = -1e9 * torch.eye(configs.enc_in, device="cuda:" + str(configs.gpu))
         self.graph_proj = nn.Linear(configs.id_dim + configs.cluster_dim, configs.graph_dim)
-        #self.graph_proj = nn.Linear(configs.id_dim , configs.graph_dim)
         gcn_input_dim = configs.d_model + configs.id_dim  + configs.cluster_dim
         self.context_weight = nn.Parameter(torch.randn(configs.enc_in, gcn_input_dim))
         nn.init.xavier_normal_(self.context_weight)
@@ -211,8 +205,6 @@ class MIDGCN(nn.Module):
         static_id_embeds = self.id_emb(var_indices) # (c, id_dim)
         dynamic_id_embeds = self.dynamic_id_proj(x).squeeze(dim=-2) #(b,c,id_dim)
         id_embeds = static_id_embeds.unsqueeze(0).expand(b, -1, -1) + dynamic_id_embeds #(b,c,id_dim)
-        #id_embeds = dynamic_id_embeds #(b,c,id_dim)
-        #id_embeds = static_id_embeds.expand(b, -1, -1) #(b,c,id_dim)
         # --- 2. 可学习的软聚类分配 ---
         cluster_centers = self.cluster_emb.weight # (num_clusters, cluster_dim)
         id_for_clustering = self.id_to_cluster(id_embeds) # (b, c, cluster_dim)
@@ -229,16 +221,8 @@ class MIDGCN(nn.Module):
         adj = F.softmax(adj, dim=-1) # (b, c, c)
         # --- 4. 特征融合 ---
         gcn_input = torch.cat([x.squeeze(dim=-2), id_embeds, cluster_embeds], dim=-1) # (b, c, d_model + id_dim + cluster_dim)
-        #gcn_input = torch.cat([x.squeeze(dim=-2), id_embeds], dim=-1) # (b, c, d_model + id_dim)
         w = F.tanh(torch.einsum("bod,ol->bdl",torch.einsum('boi,bid->bod', adj, gcn_input),self.context_weight))
-        #w = F.tanh(torch.einsum("bod,ol->bdl",gcn_input,self.context_weight))
         gcn_input = self.linear(torch.einsum("bdl,bod->bol",self.dropout(w),gcn_input) + gcn_input)
-        # np.save("tra_s_id.npy",static_id_embeds.cpu().detach().numpy())
-        # np.save("tra_d_id.npy",dynamic_id_embeds[0].cpu().detach().numpy())
-        # np.save("tra_cluster_id.npy",cluster_centers.cpu().detach().numpy())
-        # np.save("tra_cluster_id_graph.npy",graph_emb[0].cpu().detach().numpy())
-        # np.save("tra_cluster_id_x_graph.npy",gcn_input[0].cpu().detach().numpy())
-
         return gcn_input.unsqueeze(dim=-2) #(b,c,n,t)
 
 
@@ -268,8 +252,6 @@ class Model(nn.Module):
             self.temporal_encoder_out = nn.ModuleList([gated_mlp(seq_in = self.pred_len, seq_out = self.pred_len, 
                                               d_model = configs.d_model, channels = configs.enc_in) #configs.d_model
                                               for i in range(1)])
-            # self.conv_in = fconv(c_in=configs.enc_in,inp_len=self.seq_len)
-            # self.conv_out = fconv(c_in=configs.enc_in,inp_len=self.pred_len)
             self.GNN_encoder_out = nn.ModuleList([MIDGCN(configs=configs,out_len=self.pred_len)
                                           for i in range(1)])
             self.fconv_out = FreqConv(4, self.pred_len, self.pred_len)
@@ -279,13 +261,7 @@ class Model(nn.Module):
         self.use_last = configs.use_last
     
     def forecast(self,x):#(b,t,1,c)
-
-        # c_dim, t_dim = x.shape[1], x.shape[2]
-        # indices_t = torch.randperm(t_dim)
-        # # x = x[:,indices_c,:]
-        # x = x[:,:,indices_t]
         x = x.unsqueeze(dim=-2).permute(0,3,2,1)
-        # np.save("tra_input_x.npy",x[0,:,0,:].cpu().detach().numpy())
         if self.use_revin:
             x = self.revin.forward(x)
         if self.use_last:
@@ -294,17 +270,12 @@ class Model(nn.Module):
         for (mlp,gnn) in zip(self.temporal_encoder_in,self.GNN_encoder_in):
             x_1 = mlp(x)
             x_2 = gnn(x_1)
-            # x_2 = x_1
         x_2 = self.fconv_in(x,x_2)
-        # x_2 = self.conv_in(x,x_2)
         y = self.fc_idp(x_2)
         for (mlp,gnn) in zip(self.temporal_encoder_out,self.GNN_encoder_out):
             y_1 = mlp(y)
             y_2 = gnn(y_1)
-            # y_2 = y_1
         y = self.fconv_out(y,y_2)
-        # y = y_2
-        # y = self.conv_out(y,y_2)
         if self.use_last:
             y = y + last_seq
         if self.use_revin:
@@ -319,9 +290,7 @@ class Model(nn.Module):
     def forward(self, x_enc, x_mark_enc, x_dec, x_mark_dec, mask=None):
         if self.task_name == 'long_term_forecast' or self.task_name == 'short_term_forecast':
             dec_out = self.forecast(x_enc)
-            # np.save('midgcn_pred_wea.npy', x_enc.cpu().detach().numpy())
-            # np.save('midgcn_true_wea.npy', dec_out.cpu().detach().numpy())
-            return dec_out#,loss
+            return dec_out
         if self.task_name == 'anomaly_detection':
             dec_out = self.anomaly_detection(x_enc)
             return dec_out  # [B, L, D]
