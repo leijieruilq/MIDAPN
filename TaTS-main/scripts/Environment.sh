@@ -4,7 +4,7 @@ GPU=0
 root_path=./data
 seed=2025
 
-all_models=("MIDAG_SPCN")
+all_models=("MIDAPN")
 datasets=("Environment")
 pred_lengths=(12)
 batch_sizes=(8) 
