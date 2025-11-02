@@ -4,7 +4,7 @@ GPU=0
 root_path=./data
 seed=2025 
 
-all_models=("MIDAG_SPCN")
+all_models=("MIDAPN")
 datasets=("Agriculture")
 pred_lengths=(12)
 batch_sizes=(64)
@@ -53,10 +53,10 @@ do
                         --layers 1 \
                         --use_revin 1 \
                         --use_last 1 \
-                        --num_clusters 128 \
-                        --id_dim 8 \
-                        --cluster_dim 8 \
-                        --graph_dim 128 \
+                        --num_clusters 4 \
+                        --id_dim 16 \
+                        --cluster_dim 16 \
+                        --graph_dim 16 \
                         --d_model 512
                 done
             done
