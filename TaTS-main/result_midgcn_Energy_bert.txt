@@ -1,8 +1,0 @@
-    parser.add_argument('--layers', type=int, default=1, help='MIDGCN layers')
-    parser.add_argument('--use_revin', type=int, default=1, help='use revin')
-    parser.add_argument('--use_last', type=int, default=0, help='use revin')
-    parser.add_argument('--num_clusters',type=int,default=128,help='numbers of cluster centers')
-    parser.add_argument('--id_dim',type=int,default=8)
-    parser.add_argument('--cluster_dim',type=int,default=8)
-    parser.add_argument('--graph_dim',type=int,default=128)
-    parser.add_argument('--d_model', type=int, default=1024, help='dimension of model')
