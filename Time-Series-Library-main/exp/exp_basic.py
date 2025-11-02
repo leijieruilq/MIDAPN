@@ -1,12 +1,13 @@
 import os
 import torch
-from models import MIDAPN
+from models import MIDAPN, MIDAPN_t
 
 class Exp_Basic(object):
     def __init__(self, args):
         self.args = args
         self.model_dict = {
             'MIDAPN':MIDAPN,
+            'MIDAPN_t':MIDAPN_t,
         }
         self.device = self._acquire_device()
         self.model = self._build_model().to(self.device)
