@@ -5,7 +5,7 @@ GPU=0
 root_path=./data
 seed=2025 # 将seed固定为一个值
 
-all_models=("MIDAG_SPCN")
+all_models=("MIDAPN")
 datasets=("Health")
 pred_lengths=(12)
 batch_sizes=(8) # 在这里设置您想测试的不同batch size
