@@ -7,53 +7,6 @@ import math
 import torch.fft
 from einops import rearrange
 
-class Mahalanobis_mask(nn.Module):
-    def __init__(self, input_size):
-        super(Mahalanobis_mask, self).__init__()
-        frequency_size = input_size // 2 + 1
-        self.A = nn.Parameter(torch.randn(frequency_size, frequency_size), requires_grad=True)
-    def calculate_prob_distance(self, X): #(batchsize, channels, seq_len)
-        XF = torch.abs(torch.fft.rfft(X, dim=-1)) #(batchsize, channels, int(seq_len)/2 + 1)
-        X1 = XF.unsqueeze(2)
-        X2 = XF.unsqueeze(1)
-        # B x C x C x D
-        diff = X1 - X2 #(batchsize, channels, channels, int(seq_len)/2 + 1)
-        temp = torch.einsum("dk,bxck->bxcd", self.A, diff) #(int(seq_len)/2 + 1,int(seq_len)/2 + 1), (batchsize, channels, channels, int(seq_len)/2 + 1)
-        dist = torch.einsum("bxcd,bxcd->bxc", temp, temp) #(batchsize, channels, channels)
-        # exp_dist = torch.exp(-dist)
-        exp_dist = 1 / (dist + 1e-10) #(batchsize, channels, channels)
-        # 对角线置零
-        identity_matrices = 1 - torch.eye(exp_dist.shape[-1]) #(batchsize, channels, channels)
-        mask = identity_matrices.repeat(exp_dist.shape[0], 1, 1).to(exp_dist.device) #(batchsize, channels, channels)
-        exp_dist = torch.einsum("bxc,bxc->bxc", exp_dist, mask) #(batchsize, channels, channels)
-        exp_max, _ = torch.max(exp_dist, dim=-1, keepdim=True) #(batchsize, channels, 1)
-        exp_max = exp_max.detach() #将相似度矩阵的对角线元素置零。这是因为在构建通道间关系掩码时，通常不考虑一个通道与自身的关系
-        # B x C x C
-        p = exp_dist / exp_max #(batchsize, channels, channels) 对每个通道（矩阵的每一行）的相似度进行归一化，使得该通道与其他通道的最大相似度为1。这形成了一个概率化的关系矩阵 P
-        identity_matrices = torch.eye(p.shape[-1])
-        p1 = torch.einsum("bxc,bxc->bxc", p, mask) #(batchsize, channels, channels) 去对角线化
-        diag = identity_matrices.repeat(p.shape[0], 1, 1).to(p.device)
-        p = (p1 + diag) * 0.99 #再次确保非对角线元素是基于 p1（对角线为0的概率），然后将对角线元素设置为1（表示一个通道与自身是完全相关的，这在注意力机制中通常是期望的）
-        #，最后乘以一个折扣因子 0.99 。这个折扣因子 γ 用于避免绝对的连接。
-        return p #(batchsize, channels, chaneels)
-
-    def bernoulli_gumbel_rsample(self, distribution_matrix):
-        b, c, d = distribution_matrix.shape
-        flatten_matrix = rearrange(distribution_matrix, 'b c d -> (b c d) 1')
-        r_flatten_matrix = 1 - flatten_matrix
-        log_flatten_matrix = torch.log(flatten_matrix / r_flatten_matrix) #(32*7*7,1)
-        log_r_flatten_matrix = torch.log(r_flatten_matrix / flatten_matrix) #(32*7*7,1)
-        new_matrix = torch.concat([log_flatten_matrix, log_r_flatten_matrix], dim=-1) #(32*7*7,2)
-        resample_matrix = gumbel_softmax(new_matrix, hard=True) #(32,7,7)
-        resample_matrix = rearrange(resample_matrix[..., 0], '(b c d) -> b c d', b=b, c=c, d=d)
-        return resample_matrix
-
-    def forward(self, X):
-        p = self.calculate_prob_distance(X) #利用马氏距离度量通道间概率
-        # bernoulli中两个通道有关系的概率
-        mask = self.bernoulli_gumbel_rsample(p) #(batchsize,channels,channels)
-        return mask
-
 class RevIN(nn.Module):
     def __init__(self, num_channels, num_nodes, eps = 1e-5, affine = True):
         super().__init__()
@@ -164,11 +117,25 @@ class FreqConv(nn.Module):
         for i in range(self.freq_layers):
             h = F.pad(h,pad=(self.pad_front,self.pad_behid,0,0))
             h = self.Convs[i](h)
-            #np.save("conv_weight_"+str(i)+".npy", self.Convs[i].weight.cpu().detach().numpy())
             h = self.Pools[i](h)
         y = self.final_conv(h).permute(0,2,3,1) + x1 + x2
-        #np.save("conv_weight_final.npy", self.final_conv.weight.cpu().detach().numpy())
         return y
+
+class fconv(nn.Module):
+    def __init__(self, c_in, inp_len):
+        nn.Module.__init__(self)
+        self.conv = nn.Conv2d(c_in, c_in, kernel_size=3, padding=1)
+        self.linear1 = nn.Linear(4,1)
+        self.linear2 = nn.Linear((inp_len+1)//2 + 1, inp_len)
+    def forward(self, x1, x2):
+        x1_fft = torch.fft.rfft(x1)
+        x2_fft = torch.fft.rfft(x2)
+        h = torch.cat((x1_fft.imag, x2_fft.imag,
+                       x1_fft.real, x2_fft.real),dim=2)
+        h = self.linear2(h)
+        h = self.linear1(h.permute(0,1,3,2)).permute(0,1,3,2)
+        return h
+
 
 class Indepent_Linear(nn.Module):
     def __init__(self, s_in, s_out, channels, share=False, dp_rate=0.5):
@@ -187,21 +154,6 @@ class Indepent_Linear(nn.Module):
 
     def forward(self, x):
         h = torch.einsum('BCNI,CNIO->BCNO',(x,self.weight))+self.bias
-        return h
-    
-class fconv(nn.Module):
-    def __init__(self, c_in, inp_len):
-        nn.Module.__init__(self)
-        self.conv = nn.Conv2d(c_in, c_in, kernel_size=3, padding=1)
-        self.linear1 = nn.Linear(4,1)
-        self.linear2 = nn.Linear((inp_len+1)//2 + 1, inp_len)
-    def forward(self, x1, x2):
-        x1_fft = torch.fft.rfft(x1)
-        x2_fft = torch.fft.rfft(x2)
-        h = torch.cat((x1_fft.imag, x2_fft.imag,
-                       x1_fft.real, x2_fft.real),dim=2)
-        h = self.linear2(h)
-        h = self.linear1(h.permute(0,1,3,2)).permute(0,1,3,2)
         return h
 
 class fft_mlp(nn.Module):
@@ -223,7 +175,6 @@ class gated_mlp(nn.Module):
         self.dropout = nn.Dropout(dp_rate)
 
     def forward(self, x):
-        h = x
         h = self.fft(x)
         h = self.update(h)
         h = F.tanh(h)
@@ -233,18 +184,14 @@ class gated_mlp(nn.Module):
 class MIDGCN(nn.Module):
     def __init__(self, configs, out_len):
         super(MIDGCN, self).__init__()
-         # 1. 变量身份嵌入 (静态+动态)
         self.id_emb= nn.Embedding(configs.enc_in, configs.id_dim)
         self.dynamic_id_proj = nn.Sequential(nn.Linear(configs.d_model, configs.d_model // 2),
                                              nn.ReLU(),
                                              nn.Linear(configs.d_model // 2,configs.id_dim))
-        # 2. 可学习的聚类中心，通过 nn.Embedding 实现，其 .weight 属性即为聚类中心
         self.cluster_emb = nn.Embedding(configs.num_clusters, configs.cluster_dim)
-        # 3. 用于将身份嵌入投影到与聚类中心进行相似度计算的空间（可选，但常用于匹配维度或增加表达力）
         self.id_to_cluster = nn.Linear(configs.id_dim, configs.cluster_dim)
         self.neg_inf = -1e9 * torch.eye(configs.enc_in, device="cuda:" + str(configs.gpu))
         self.graph_proj = nn.Linear(configs.id_dim + configs.cluster_dim, configs.graph_dim)
-        #self.graph_proj = nn.Linear(configs.id_dim, configs.graph_dim)
         gcn_input_dim = configs.d_model + configs.id_dim  + configs.cluster_dim
         self.context_weight = nn.Parameter(torch.randn(configs.enc_in, gcn_input_dim))
         nn.init.xavier_normal_(self.context_weight)
@@ -258,8 +205,6 @@ class MIDGCN(nn.Module):
         static_id_embeds = self.id_emb(var_indices) # (c, id_dim)
         dynamic_id_embeds = self.dynamic_id_proj(x).squeeze(dim=-2) #(b,c,id_dim)
         id_embeds = static_id_embeds.unsqueeze(0).expand(b, -1, -1) + dynamic_id_embeds #(b,c,id_dim)
-        #id_embeds = static_id_embeds.expand(b, -1, -1)
-        # id_embeds = dynamic_id_embeds
         # --- 2. 可学习的软聚类分配 ---
         cluster_centers = self.cluster_emb.weight # (num_clusters, cluster_dim)
         id_for_clustering = self.id_to_cluster(id_embeds) # (b, c, cluster_dim)
@@ -276,14 +221,8 @@ class MIDGCN(nn.Module):
         adj = F.softmax(adj, dim=-1) # (b, c, c)
         # --- 4. 特征融合 ---
         gcn_input = torch.cat([x.squeeze(dim=-2), id_embeds, cluster_embeds], dim=-1) # (b, c, d_model + id_dim + cluster_dim)
-        #gcn_input = torch.cat([x.squeeze(dim=-2), id_embeds], dim=-1) 
-        # gcn_input = torch.cat([x.squeeze(dim=-2)], dim=-1) 
         w = F.tanh(torch.einsum("bod,ol->bdl",torch.einsum('boi,bid->bod', adj, gcn_input),self.context_weight))
-        #w = F.tanh(torch.einsum("bod,ol->bdl",gcn_input,self.context_weight))
         gcn_input = self.linear(torch.einsum("bdl,bod->bol",self.dropout(w),gcn_input) + gcn_input)
-        # np.save("tra_s_id.npy",static_id_embeds.cpu().detach().numpy())
-        # np.save("tra_d_id.npy",dynamic_id_embeds[0].cpu().detach().numpy())
-        # np.save("tra_cluster_id.npy",cluster_centers.cpu().detach().numpy())
         return gcn_input.unsqueeze(dim=-2) #(b,c,n,t)
 
 
@@ -294,32 +233,34 @@ class Model(nn.Module):
         self.seq_len = configs.seq_len
         self.pred_len = configs.pred_len
         self.temporal_encoder_in = nn.ModuleList([gated_mlp(seq_in = self.seq_len, seq_out = self.seq_len, 
-                                              d_model = configs.d_model, channels = configs.enc_in) #configs.d_model configs.enc_in
+                                              d_model = configs.d_model, channels = configs.enc_in) #configs.d_model
                                               for i in range(configs.layers)])
         self.GNN_encoder_in = nn.ModuleList([MIDGCN(configs=configs,out_len=self.seq_len)
                                           for i in range(configs.layers)])
         self.fconv_in = FreqConv(4, self.seq_len, self.seq_len)
-        self.fc_idp = Indepent_Linear(self.seq_len, self.pred_len, configs.enc_in)
-        self.temporal_encoder_out = nn.ModuleList([gated_mlp(seq_in = self.pred_len, seq_out = self.pred_len, 
-                                              d_model = configs.d_model, channels = configs.enc_in) #configs.d_model configs.enc_in
+        if self.task_name=="anomaly_detection":
+            self.fc_idp = Indepent_Linear(self.seq_len, self.seq_len, configs.enc_in)
+            self.temporal_encoder_out = nn.ModuleList([gated_mlp(seq_in = self.seq_len, seq_out = self.seq_len, 
+                                              d_model = configs.d_model, channels = configs.enc_in) #configs.d_model
                                               for i in range(1)])
-        self.GNN_encoder_out = nn.ModuleList([MIDGCN(configs=configs,out_len=self.pred_len)
+            self.GNN_encoder_out = nn.ModuleList([MIDGCN(configs=configs,out_len=self.seq_len)
                                           for i in range(1)])
-        # self.fconv_in = fconv(c_in=configs.enc_in,inp_len=self.seq_len)
-        # self.fconv_out = fconv(c_in=configs.enc_in,inp_len=self.pred_len)
-        # self.conv_in = nn.Conv2d(in_channels=configs.enc_in,out_channels=configs.enc_in,kernel_size=3,padding=1)
-        # self.conv_out = nn.Conv2d(in_channels=configs.enc_in,out_channels=configs.enc_in,kernel_size=3,padding=1)
-        self.fconv_out = FreqConv(4, self.pred_len, self.pred_len)
+            self.fconv_out = FreqConv(4, self.seq_len, self.seq_len)
+        
+        else:
+            self.fc_idp = Indepent_Linear(self.seq_len, self.pred_len, configs.enc_in)
+            self.temporal_encoder_out = nn.ModuleList([gated_mlp(seq_in = self.pred_len, seq_out = self.pred_len, 
+                                              d_model = configs.d_model, channels = configs.enc_in) #configs.d_model
+                                              for i in range(1)])
+            self.GNN_encoder_out = nn.ModuleList([MIDGCN(configs=configs,out_len=self.pred_len)
+                                          for i in range(1)])
+            self.fconv_out = FreqConv(4, self.pred_len, self.pred_len)
         if configs.use_revin:
             self.revin = RevIN(num_channels=configs.enc_in,num_nodes=1)
         self.use_revin = configs.use_revin
         self.use_last = configs.use_last
     
     def forecast(self,x):#(b,t,1,c)
-        # t_dim, c_dim = x.shape[1], x.shape[2]
-        # indices_c = torch.randperm(c_dim)
-        # x = x[:,:,indices_c]
-
         x = x.unsqueeze(dim=-2).permute(0,3,2,1)
         if self.use_revin:
             x = self.revin.forward(x)
@@ -329,56 +270,27 @@ class Model(nn.Module):
         for (mlp,gnn) in zip(self.temporal_encoder_in,self.GNN_encoder_in):
             x_1 = mlp(x)
             x_2 = gnn(x_1)
-            # x_2 = x_1
         x_2 = self.fconv_in(x,x_2)
-        # x_2 = self.conv_in(x_2)
         y = self.fc_idp(x_2)
         for (mlp,gnn) in zip(self.temporal_encoder_out,self.GNN_encoder_out):
             y_1 = mlp(y)
             y_2 = gnn(y_1)
-            # y_2 = y_1
-        # y = self.conv_out(y_2)
         y = self.fconv_out(y,y_2)
-        # y = y_2
         if self.use_last:
             y = y + last_seq
         if self.use_revin:
             y = self.revin.reverse(y)
         y = y.squeeze(dim=-2).permute(0,2,1)
         return y
+    
+    def anomaly_detection(self,x):
+        x = self.forecast(x)
+        return x
 
     def forward(self, x_enc, x_mark_enc, x_dec, x_mark_dec, mask=None):
         if self.task_name == 'long_term_forecast' or self.task_name == 'short_term_forecast':
             dec_out = self.forecast(x_enc)
-            return dec_out#,loss
-
-        # x = x.unsqueeze(dim=-2).permute(0,3,2,1)
-        # # np.save("tra_input_x.npy",x[0,:,0,:].cpu().detach().numpy())
-        # if self.use_revin:
-        #     x = self.revin.forward(x)
-        # if self.use_last:
-        #     last_seq = x[:,:,:,-1].unsqueeze(dim=-1)
-        #     x = x - last_seq
-        # x = self.fconv_in(x,x)
-        # for (mlp,gnn) in zip(self.temporal_encoder_in,self.GNN_encoder_in):
-        #     x_1 = mlp(x)
-        #     x_2 = gnn(x_1)
-        #     # x_2 = x_1
-        # #x_2 = self.fconv_in(x,x_2)
-        # # x_2 = self.conv_in(x,x_2)
-
-        # y = self.fc_idp(x_2)
-        # y = self.fconv_out(y,y)
-        # for (mlp,gnn) in zip(self.temporal_encoder_out,self.GNN_encoder_out):
-        #     y_1 = mlp(y)
-        #     y_2 = gnn(y_1)
-        #     # y_2 = y_1
-        #     y = y_2
-        # #y = self.fconv_out(y,y_2)
-        # # y = y_2
-        # # y = self.conv_out(y,y_2)
-        # if self.use_last:
-        #     y = y + last_seq
-        # if self.use_revin:
-        #     y = self.revin.reverse(y)
-        # y = y.squeeze(dim=-2).permute(0,2,1)
+            return dec_out
+        if self.task_name == 'anomaly_detection':
+            dec_out = self.anomaly_detection(x_enc)
+            return dec_out  # [B, L, D]
