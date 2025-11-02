@@ -1,6 +1,6 @@
 export CUDA_VISIBLE_DEVICES=0
-model_name=MIDAG_SPCN
-python -u run_midag_spcn.py \
+model_name=MIDAPN
+python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path /home/ljr/raw_files/SOLAR/ \
@@ -29,7 +29,7 @@ python -u run_midag_spcn.py \
   --loss 'MAE' \
   --target "PV137"
 
-python -u run_midag_spcn.py \
+python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path /home/ljr/raw_files/SOLAR/ \
@@ -58,7 +58,7 @@ python -u run_midag_spcn.py \
   --loss 'MAE' \
   --target "PV137"
 
-python -u run_midag_spcn.py \
+python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path /home/ljr/raw_files/SOLAR/ \
@@ -87,7 +87,7 @@ python -u run_midag_spcn.py \
   --loss 'MAE' \
   --target "PV137"
 
-python -u run_midag_spcn.py \
+python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path /home/ljr/raw_files/SOLAR/ \
