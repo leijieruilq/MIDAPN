@@ -1,8 +1,8 @@
 export CUDA_VISIBLE_DEVICES=0
 
-model_name=MIDAG_SPCN
+model_name=MIDAPN
 
-python -u run_midag_spcn.py \
+python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path /home/ljr/raw_files/electricity/ \
@@ -31,7 +31,7 @@ python -u run_midag_spcn.py \
   --loss 'MAE' \
 #   # --weight_decay 0.0003 \
 
-python -u run_midag_spcn.py \
+python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path /home/ljr/raw_files/electricity/ \
@@ -60,7 +60,7 @@ python -u run_midag_spcn.py \
   --loss 'MAE' \
 # #   # --weight_decay 0.0003 \
 
-python -u run_midag_spcn.py \
+python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path /home/ljr/raw_files/electricity/ \
@@ -89,7 +89,7 @@ python -u run_midag_spcn.py \
   --loss 'MAE' \
   # --weight_decay 0.0003 \
 
-python -u run_midag_spcn.py \
+python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path /home/ljr/raw_files/electricity/ \
