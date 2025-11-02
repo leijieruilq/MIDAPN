@@ -1,8 +1,8 @@
-export CUDA_VISIBLE_DEVICES=1
+export CUDA_VISIBLE_DEVICES=0
 
-model_name=MIDAPN
+model_name=MIDAG_SPCN_t
 
-python -u run.py \
+python -u run_midag_spcn.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path /home/ljr/raw_files/QPS/ \
@@ -34,7 +34,7 @@ python -u run.py \
   # --use_last 1 \
   # --use_revin 1 \
 
-python -u run.py \
+python -u run_midag_spcn.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path /home/ljr/raw_files/QPS/ \
@@ -66,7 +66,7 @@ python -u run.py \
   # --use_last 1 \
   # --use_revin 1 \
 
-python -u run.py \
+python -u run_midag_spcn.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path /home/ljr/raw_files/QPS/ \
@@ -94,11 +94,8 @@ python -u run.py \
   --lradj cosine \
   --loss 'MAE' \
   --target "y9" \
-  # --weight_decay 0.0003 \
-  # --use_last 1 \
-  # --use_revin 1 \
 
-python -u run.py \
+python -u run_midag_spcn.py \
   --task_name long_term_forecast \
   --is_training 1 \
   --root_path /home/ljr/raw_files/QPS/ \
@@ -129,3 +126,4 @@ python -u run.py \
   --use_revin 1 \
   --weight_decay 0.0003 \
   --use_last 0 \
+
