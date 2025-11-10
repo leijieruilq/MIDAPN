@@ -5,7 +5,7 @@ model_name=MIDAPN
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path /home/ljr/raw_files/WDCW/ \
+  --root_path ./raw_files/WDCW/ \
   --data_path dc_weather.csv\
   --model_id dc_weather_36_24 \
   --model $model_name \
@@ -36,7 +36,7 @@ python -u run.py \
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path /home/ljr/raw_files/WDCW/ \
+  --root_path ./raw_files/WDCW/ \
   --data_path dc_weather.csv\
   --model_id dc_weather_36_36 \
   --model $model_name \
@@ -69,7 +69,7 @@ python -u run.py \
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path /home/ljr/raw_files/WDCW/ \
+  --root_path ./raw_files/WDCW/ \
   --data_path dc_weather.csv\
   --model_id dc_weather_36_48 \
   --model $model_name \
@@ -100,7 +100,7 @@ python -u run.py \
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path /home/ljr/raw_files/WDCW/ \
+  --root_path ./raw_files/WDCW/ \
   --data_path dc_weather.csv\
   --model_id dc_weather_36_60 \
   --model $model_name \
