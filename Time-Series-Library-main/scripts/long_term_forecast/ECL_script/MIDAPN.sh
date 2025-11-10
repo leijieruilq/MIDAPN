@@ -5,7 +5,7 @@ model_name=MIDAPN
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path /home/ljr/raw_files/electricity/ \
+  --root_path ./raw_files/electricity/ \
   --data_path electricity.csv \
   --model_id electricity_96_96 \
   --model $model_name \
@@ -34,7 +34,7 @@ python -u run.py \
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path /home/ljr/raw_files/electricity/ \
+  --root_path ./raw_files/electricity/ \
   --data_path electricity.csv \
   --model_id electricity_96_192 \
   --model $model_name \
@@ -63,7 +63,7 @@ python -u run.py \
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path /home/ljr/raw_files/electricity/ \
+  --root_path ./raw_files/electricity/ \
   --data_path electricity.csv \
   --model_id electricity_96_336 \
   --model $model_name \
@@ -92,7 +92,7 @@ python -u run.py \
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path /home/ljr/raw_files/electricity/ \
+  --root_path ./raw_files/electricity/ \
   --data_path electricity.csv \
   --model_id electricity_96_720 \
   --model $model_name \
