@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
     # data loader
     parser.add_argument('--data', type=str, required=False, default='custom', help='dataset type')
-    parser.add_argument('--root_path', type=str, default='/home/ljr/raw_files/ETT-small/', help='root path of the data file')
+    parser.add_argument('--root_path', type=str, default='./raw_files/ETT-small/', help='root path of the data file')
     parser.add_argument('--label_path', type=str, default='ETTm1.csv', help='label file')
     parser.add_argument('--data_path', type=str, default='ETTm1.csv', help='data file')
     parser.add_argument('--features', type=str, default='M',
