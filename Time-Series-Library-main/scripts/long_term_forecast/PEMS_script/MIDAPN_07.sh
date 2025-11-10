@@ -5,7 +5,7 @@ model_name=MIDAPN
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path /home/ljr/raw_files/PEMS07/ \
+  --root_path ./raw_files/PEMS07/ \
   --data_path PEMS07.npz \
   --model_id PEMS07_96_12 \
   --model $model_name \
@@ -36,7 +36,7 @@ python -u run.py \
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path /home/ljr/raw_files/PEMS07/ \
+  --root_path ./raw_files/PEMS07/ \
   --data_path PEMS07.npz \
   --model_id PEMS07_96_24 \
   --model $model_name \
@@ -67,7 +67,7 @@ python -u run.py \
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path /home/ljr/raw_files/PEMS07/ \
+  --root_path ./raw_files/PEMS07/ \
   --data_path PEMS07.npz \
   --model_id PEMS07_96_48 \
   --model $model_name \
@@ -98,7 +98,7 @@ python -u run.py \
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path /home/ljr/raw_files/PEMS07/ \
+  --root_path ./raw_files/PEMS07/ \
   --data_path PEMS07.npz \
   --model_id PEMS07_96_96 \
   --model $model_name \
