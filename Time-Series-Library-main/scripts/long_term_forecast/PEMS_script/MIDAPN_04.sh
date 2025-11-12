@@ -1,4 +1,4 @@
-export CUDA_VISIBLE_DEVICES=0
+export CUDA_VISIBLE_DEVICES=1
 
 model_name=MIDAPN
 
@@ -20,15 +20,16 @@ python -u run.py \
   --graph_dim 32 \
   --d_model 512 \
   --enc_in 307 \
-  --batch_size 16 \
-  --learning_rate 0.0003 \
+  --learning_rate 0.003 \
   --des 'Exp' \
-  --train_epochs 50 \
-  --patience 10 \
+  --train_epochs 30 \
+  --patience 3 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
   --loss 'MAE' \
+  --use_last 1 \
+  --use_revin 0 \
+  --batch_size 32
   # --weight_decay 0.0003 \
   # --use_last 1 \
   # --use_revin 1 \
@@ -51,15 +52,16 @@ python -u run.py \
   --graph_dim 32 \
   --d_model 512 \
   --enc_in 307 \
-  --batch_size 16 \
-  --learning_rate 0.0003 \
+  --learning_rate 0.003 \
   --des 'Exp' \
-  --train_epochs 50 \
-  --patience 10 \
+  --train_epochs 30 \
+  --patience 3 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
   --loss 'MAE' \
+  --use_last 1 \
+  --use_revin 0 \
+  --batch_size 32
   # --weight_decay 0.0003 \
   # --use_last 1 \
   # --use_revin 1 \
@@ -82,15 +84,16 @@ python -u run.py \
   --graph_dim 32 \
   --d_model 512 \
   --enc_in 307 \
-  --batch_size 16 \
-  --learning_rate 0.0003 \
+  --learning_rate 0.003 \
   --des 'Exp' \
-  --train_epochs 50 \
-  --patience 10 \
+  --train_epochs 30 \
+  --patience 3 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
   --loss 'MAE' \
+  --use_last 1 \
+  --use_revin 0 \
+  --batch_size 32
   # --weight_decay 0.0003 \
   # --use_last 1 \
   # --use_revin 1 \
@@ -113,15 +116,16 @@ python -u run.py \
   --graph_dim 32 \
   --d_model 512 \
   --enc_in 307 \
-  --batch_size 16 \
-  --learning_rate 0.0003 \
+  --learning_rate 0.003 \
   --des 'Exp' \
-  --train_epochs 50 \
-  --patience 10 \
+  --train_epochs 30 \
+  --patience 3 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
   --loss 'MAE' \
+  --use_last 1 \
+  --use_revin 0 \
+  --batch_size 32
   # --weight_decay 0.0003 \
   # --use_last 1 \
   # --use_revin 1 \
