@@ -1,4 +1,4 @@
-export CUDA_VISIBLE_DEVICES=0
+export CUDA_VISIBLE_DEVICES=1
 model_name=MIDAPN
 python -u run.py \
   --task_name long_term_forecast \
@@ -18,16 +18,17 @@ python -u run.py \
   --graph_dim 32 \
   --d_model 512 \
   --enc_in 137 \
-  --batch_size 32 \
-  --learning_rate 0.001 \
+  --batch_size 64 \
+  --learning_rate 0.003 \
   --des 'Exp' \
-  --train_epochs 10 \
-  --patience 10 \
+  --train_epochs 30 \
+  --patience 5 \
   --itr 1 \
   --gpu 0 \
   --lradj "type1" \
   --loss 'MAE' \
-  --target "PV137"
+  --target "PV137" \
+  --use_revin 0
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -47,16 +48,17 @@ python -u run.py \
   --graph_dim 32 \
   --d_model 512 \
   --enc_in 137 \
-  --batch_size 32 \
-  --learning_rate 0.001 \
+  --batch_size 64 \
+  --learning_rate 0.003 \
   --des 'Exp' \
-  --train_epochs 10 \
-  --patience 3 \
+  --train_epochs 30 \
+  --patience 5 \
   --itr 1 \
   --gpu 0 \
   --lradj "type1" \
   --loss 'MAE' \
-  --target "PV137"
+  --target "PV137" \
+  --use_revin 0
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -76,16 +78,17 @@ python -u run.py \
   --graph_dim 32 \
   --d_model 256 \
   --enc_in 137 \
-  --batch_size 16 \
-  --learning_rate 0.0005 \
+  --batch_size 64 \
+  --learning_rate 0.003 \
   --des 'Exp' \
-  --train_epochs 10 \
-  --patience 10 \
+  --train_epochs 30 \
+  --patience 5 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
+  --lradj "type1" \
   --loss 'MAE' \
-  --target "PV137"
+  --target "PV137" \
+  --use_revin 0
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -105,13 +108,14 @@ python -u run.py \
   --graph_dim 32 \
   --d_model 256 \
   --enc_in 137 \
-  --batch_size 16 \
-  --learning_rate 0.0005 \
+  --batch_size 64 \
+  --learning_rate 0.003 \
   --des 'Exp' \
-  --train_epochs 50 \
-  --patience 50 \
+  --train_epochs 30 \
+  --patience 5 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
+  --lradj "type1" \
   --loss 'MAE' \
-  --target "PV137"
+  --target "PV137" \
+  --use_revin 0
