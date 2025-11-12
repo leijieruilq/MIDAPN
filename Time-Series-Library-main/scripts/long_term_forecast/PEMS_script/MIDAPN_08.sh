@@ -18,17 +18,18 @@ python -u run.py \
   --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 256 \
   --enc_in 170 \
   --batch_size 16 \
-  --learning_rate 0.0003 \
+  --learning_rate 0.003 \
   --des 'Exp' \
-  --train_epochs 50 \
+  --train_epochs 30 \
   --patience 10 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
   --loss 'MAE' \
+  --use_last 0 \
+  --use_revin 0 \
   # --weight_decay 0.0003 \
   # --use_last 1 \
   # --use_revin 1 \
@@ -49,20 +50,18 @@ python -u run.py \
   --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 256 \
   --enc_in 170 \
   --batch_size 16 \
-  --learning_rate 0.0003 \
+  --learning_rate 0.003 \
   --des 'Exp' \
-  --train_epochs 50 \
+  --train_epochs 30 \
   --patience 10 \
   --itr 1 \
   --gpu 0 \
-  --lradj cosine \
   --loss 'MAE' \
-  # --weight_decay 0.0003 \
-  # --use_last 1 \
-  # --use_revin 1 \
+  --use_last 0 \
+  --use_revin 0 \
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -82,18 +81,16 @@ python -u run.py \
   --graph_dim 32 \
   --d_model 256 \
   --enc_in 170 \
-  --batch_size 16 \
-  --learning_rate 0.0003 \
+  --learning_rate 0.003 \
   --des 'Exp' \
-  --train_epochs 50 \
-  --patience 10 \
+  --train_epochs 30 \
+  --patience 3 \
   --itr 1 \
   --gpu 0 \
   --loss 'MAE' \
-  --lradj cosine \
-  # --weight_decay 0.0003 \
-  # --use_last 1 \
-  # --use_revin 1 \
+  --use_last 0 \
+  --use_revin 0 \
+  --batch_size 32
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -111,17 +108,15 @@ python -u run.py \
   --id_dim 32 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 256 \
+  --d_model 128 \
   --enc_in 170 \
-  --batch_size 16 \
-  --learning_rate 0.0003 \
+  --learning_rate 0.003 \
   --des 'Exp' \
-  --train_epochs 100 \
-  --patience 10 \
+  --train_epochs 30 \
+  --patience 3 \
   --itr 1 \
   --gpu 0 \
   --loss 'MAE' \
-  --lradj cosine \
-  # --weight_decay 0.0003 \
-  # --use_last 1 \
-  # --use_revin 1 \
+  --use_last 0 \
+  --use_revin 0 \
+  --batch_size 32
