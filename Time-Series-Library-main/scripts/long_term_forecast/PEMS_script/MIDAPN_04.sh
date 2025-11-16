@@ -27,12 +27,9 @@ python -u run.py \
   --itr 1 \
   --gpu 0 \
   --loss 'MAE' \
-  --use_last 1 \
+  --use_last 0 \
   --use_revin 0 \
-  --batch_size 32
-  # --weight_decay 0.0003 \
-  # --use_last 1 \
-  # --use_revin 1 \
+  --batch_size 16
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -59,12 +56,9 @@ python -u run.py \
   --itr 1 \
   --gpu 0 \
   --loss 'MAE' \
-  --use_last 1 \
+  --use_last 0 \
   --use_revin 0 \
-  --batch_size 32
-  # --weight_decay 0.0003 \
-  # --use_last 1 \
-  # --use_revin 1 \
+  --batch_size 16
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -91,12 +85,9 @@ python -u run.py \
   --itr 1 \
   --gpu 0 \
   --loss 'MAE' \
-  --use_last 1 \
+  --use_last 0 \
   --use_revin 0 \
-  --batch_size 32
-  # --weight_decay 0.0003 \
-  # --use_last 1 \
-  # --use_revin 1 \
+  --batch_size 16
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -123,9 +114,6 @@ python -u run.py \
   --itr 1 \
   --gpu 0 \
   --loss 'MAE' \
-  --use_last 1 \
+  --use_last 0 \
   --use_revin 0 \
-  --batch_size 32
-  # --weight_decay 0.0003 \
-  # --use_last 1 \
-  # --use_revin 1 \
+  --batch_size 16
