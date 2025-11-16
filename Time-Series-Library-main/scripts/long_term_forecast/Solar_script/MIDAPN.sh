@@ -1,9 +1,9 @@
-export CUDA_VISIBLE_DEVICES=1
+export CUDA_VISIBLE_DEVICES=0
 model_name=MIDAPN
-python -u run.py \
+python -u run_midag_spcn.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path ./raw_files/SOLAR/ \
+  --root_path /home/ljr/raw_files/SOLAR/ \
   --data_path solar_Alabama.csv  \
   --model_id solar_96_96 \
   --model $model_name \
@@ -16,24 +16,23 @@ python -u run.py \
   --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 256 \
   --enc_in 137 \
-  --batch_size 64 \
-  --learning_rate 0.003 \
+  --batch_size 16 \
+  --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 30 \
-  --patience 5 \
+  --patience 3 \
   --itr 1 \
   --gpu 0 \
-  --lradj "type1" \
   --loss 'MAE' \
   --target "PV137" \
-  --use_revin 0
+  --use_revin 0 
 
-python -u run.py \
+python -u run_midag_spcn.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path ./raw_files/SOLAR/ \
+  --root_path /home/ljr/raw_files/SOLAR/ \
   --data_path solar_Alabama.csv  \
   --model_id solar_96_192 \
   --model $model_name \
@@ -46,24 +45,23 @@ python -u run.py \
   --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 256 \
   --enc_in 137 \
-  --batch_size 64 \
-  --learning_rate 0.003 \
+  --batch_size 16 \
+  --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 30 \
-  --patience 5 \
+  --patience 3 \
   --itr 1 \
   --gpu 0 \
-  --lradj "type1" \
   --loss 'MAE' \
   --target "PV137" \
-  --use_revin 0
+  --use_revin 0 
 
-python -u run.py \
+python -u run_midag_spcn.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path ./raw_files/SOLAR/ \
+  --root_path /home/ljr/raw_files/SOLAR/ \
   --data_path solar_Alabama.csv  \
   --model_id solar_96_336 \
   --model $model_name \
@@ -71,29 +69,27 @@ python -u run.py \
   --features M \
   --seq_len 96 \
   --pred_len 336 \
-  --layers 1 \
   --num_clusters 64 \
   --id_dim 32 \
   --cluster_dim 8 \
   --graph_dim 32 \
   --d_model 256 \
   --enc_in 137 \
-  --batch_size 64 \
-  --learning_rate 0.003 \
+  --batch_size 16 \
+  --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 30 \
-  --patience 5 \
+  --patience 3 \
   --itr 1 \
   --gpu 0 \
-  --lradj "type1" \
   --loss 'MAE' \
   --target "PV137" \
-  --use_revin 0
+  --use_revin 0 
 
-python -u run.py \
+python -u run_midag_spcn.py \
   --task_name long_term_forecast \
   --is_training 1 \
-  --root_path ./raw_files/SOLAR/ \
+  --root_path /home/ljr/raw_files/SOLAR/ \
   --data_path solar_Alabama.csv  \
   --model_id solar_96_720 \
   --model $model_name \
@@ -101,21 +97,19 @@ python -u run.py \
   --features M \
   --seq_len 96 \
   --pred_len 720 \
-  --layers 3 \
   --num_clusters 64 \
   --id_dim 32 \
   --cluster_dim 8 \
   --graph_dim 32 \
   --d_model 256 \
   --enc_in 137 \
-  --batch_size 64 \
-  --learning_rate 0.003 \
+  --batch_size 16 \
+  --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 30 \
-  --patience 5 \
+  --patience 3 \
   --itr 1 \
   --gpu 0 \
-  --lradj "type1" \
   --loss 'MAE' \
   --target "PV137" \
-  --use_revin 0
+  --use_revin 0 
