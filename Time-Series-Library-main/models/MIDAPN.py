@@ -182,7 +182,7 @@ class gated_mlp(nn.Module):
         return h
     
 class MIDGCN(nn.Module):
-    def __init__(self, configs, out_len):
+    def __init__(self, configs, out_len, p=0.5):
         super(MIDGCN, self).__init__()
         self.id_emb= nn.Embedding(configs.enc_in, configs.id_dim)
         self.dynamic_id_proj = nn.Sequential(nn.Linear(configs.d_model, configs.d_model // 2),
@@ -196,7 +196,7 @@ class MIDGCN(nn.Module):
         self.context_weight = nn.Parameter(torch.randn(configs.enc_in, gcn_input_dim))
         nn.init.xavier_normal_(self.context_weight)
         self.linear = nn.Linear(gcn_input_dim,out_len)
-        self.dropout = nn.Dropout(p=0.5)
+        self.dropout = nn.Dropout(p)
     def forward(self,x):
         b,c,n,t = x.shape
         device = x.device
