@@ -58,6 +58,7 @@ if __name__ == '__main__':
     parser.add_argument('--enc_in',type=int,default=1)
     parser.add_argument('--batch_size', type=int, default=32, help='batch size of train input data')
     parser.add_argument('--d_model',type=int,default=512)
+    parser.add_argument('--dropout_p',type=float,default=0.5)
     parser.add_argument('--use_freq',type=bool,default=True)
 
     parser.add_argument('--c_date',type=int,default=4)
