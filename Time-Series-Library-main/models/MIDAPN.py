@@ -235,7 +235,7 @@ class Model(nn.Module):
         self.temporal_encoder_in = nn.ModuleList([gated_mlp(seq_in = self.seq_len, seq_out = self.seq_len, 
                                               d_model = configs.d_model, channels = configs.enc_in) #configs.d_model
                                               for i in range(configs.layers)])
-        self.GNN_encoder_in = nn.ModuleList([MIDGCN(configs=configs,out_len=self.seq_len)
+        self.GNN_encoder_in = nn.ModuleList([MIDGCN(configs=configs,out_len=self.seq_len,p=configs.dropout_p)
                                           for i in range(configs.layers)])
         self.fconv_in = FreqConv(4, self.seq_len, self.seq_len)
         if self.task_name=="anomaly_detection":
@@ -243,7 +243,7 @@ class Model(nn.Module):
             self.temporal_encoder_out = nn.ModuleList([gated_mlp(seq_in = self.seq_len, seq_out = self.seq_len, 
                                               d_model = configs.d_model, channels = configs.enc_in) #configs.d_model
                                               for i in range(1)])
-            self.GNN_encoder_out = nn.ModuleList([MIDGCN(configs=configs,out_len=self.seq_len)
+            self.GNN_encoder_out = nn.ModuleList([MIDGCN(configs=configs,out_len=self.seq_len,p=configs.dropout_p)
                                           for i in range(1)])
             self.fconv_out = FreqConv(4, self.seq_len, self.seq_len)
         
@@ -252,7 +252,7 @@ class Model(nn.Module):
             self.temporal_encoder_out = nn.ModuleList([gated_mlp(seq_in = self.pred_len, seq_out = self.pred_len, 
                                               d_model = configs.d_model, channels = configs.enc_in) #configs.d_model
                                               for i in range(1)])
-            self.GNN_encoder_out = nn.ModuleList([MIDGCN(configs=configs,out_len=self.pred_len)
+            self.GNN_encoder_out = nn.ModuleList([MIDGCN(configs=configs,out_len=self.pred_len,,p=configs.dropout_p)
                                           for i in range(1)])
             self.fconv_out = FreqConv(4, self.pred_len, self.pred_len)
         if configs.use_revin:
