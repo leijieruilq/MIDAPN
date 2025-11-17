@@ -21,7 +21,7 @@ python -u run.py \
   --d_model 256 \
   --enc_in 170 \
   --batch_size 16 \
-  --learning_rate 0.003 \
+  --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 30 \
   --patience 10 \
@@ -30,9 +30,6 @@ python -u run.py \
   --loss 'MAE' \
   --use_last 0 \
   --use_revin 0 \
-  # --weight_decay 0.0003 \
-  # --use_last 1 \
-  # --use_revin 1 \
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -53,7 +50,7 @@ python -u run.py \
   --d_model 256 \
   --enc_in 170 \
   --batch_size 16 \
-  --learning_rate 0.003 \
+  --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 30 \
   --patience 10 \
@@ -81,7 +78,7 @@ python -u run.py \
   --graph_dim 32 \
   --d_model 256 \
   --enc_in 170 \
-  --learning_rate 0.003 \
+  --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 30 \
   --patience 3 \
@@ -90,7 +87,7 @@ python -u run.py \
   --loss 'MAE' \
   --use_last 0 \
   --use_revin 0 \
-  --batch_size 32
+  --batch_size 16
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -108,9 +105,9 @@ python -u run.py \
   --id_dim 32 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 128 \
+  --d_model 256 \
   --enc_in 170 \
-  --learning_rate 0.003 \
+  --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 30 \
   --patience 3 \
@@ -119,4 +116,4 @@ python -u run.py \
   --loss 'MAE' \
   --use_last 0 \
   --use_revin 0 \
-  --batch_size 32
+  --batch_size 16
