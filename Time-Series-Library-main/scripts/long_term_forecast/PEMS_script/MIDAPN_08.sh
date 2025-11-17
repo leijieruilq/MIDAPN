@@ -60,6 +60,7 @@ python -u run.py \
   --use_last 0 \
   --use_revin 0 \
 
+
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
@@ -71,13 +72,14 @@ python -u run.py \
   --features M \
   --seq_len 96 \
   --pred_len 48 \
-  --layers 3 \
-  --num_clusters 64 \
-  --id_dim 32 \
+  --layers 1 \
+  --num_clusters 32 \
+  --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
   --d_model 256 \
   --enc_in 170 \
+  --batch_size 16 \
   --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 30 \
@@ -87,7 +89,6 @@ python -u run.py \
   --loss 'MAE' \
   --use_last 0 \
   --use_revin 0 \
-  --batch_size 16
 
 python -u run.py \
   --task_name long_term_forecast \
