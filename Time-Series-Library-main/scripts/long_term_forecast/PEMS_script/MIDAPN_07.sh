@@ -78,7 +78,7 @@ python -u run.py \
   --graph_dim 32 \
   --d_model 512 \
   --enc_in 883 \
-  --learning_rate 0.003 \
+  --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 30 \
   --patience 3 \
@@ -110,7 +110,7 @@ python -u run.py \
   --graph_dim 32 \
   --d_model 128 \
   --enc_in 883 \
-  --learning_rate 0.003 \
+  --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 30 \
   --patience 3 \
