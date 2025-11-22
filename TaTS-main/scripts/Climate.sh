@@ -3,13 +3,11 @@
 GPU=0
 root_path=./data
 seed=2025 
-
 all_models=("MIDAPN")
 datasets=("Climate")
-pred_lengths=(12)
-batch_sizes=(8) 
-seq_lengths=(8) 
-
+pred_lengths=(8 10 12)
+batch_sizes=(8)
+seq_lengths=(8)
 current_dir=$(pwd)
 prior_weight=0.5
 text_emb=12
