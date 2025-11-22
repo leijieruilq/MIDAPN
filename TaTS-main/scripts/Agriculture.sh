@@ -4,7 +4,7 @@ GPU=1
 root_path=./data
 seed=2025 
 
-all_models=("MIDAG_SPCN")
+all_models=("MIDAPN")
 datasets=("Agriculture")
 pred_lengths=(8)
 batch_sizes=(32)
