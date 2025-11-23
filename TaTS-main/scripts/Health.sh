@@ -3,7 +3,7 @@
 GPU=0
 root_path=./data
 seed=2025
-all_models=("MIDAG_SPCN")
+all_models=("MIDAPN")
 datasets=("Health")
 pred_lengths=(8 12)
 batch_sizes=(8) 
@@ -63,16 +63,15 @@ do
 done
 
 
+
 GPU=0
 root_path=./data
 seed=2025 
-
-all_models=("MIDAG_SPCN")
+all_models=("MIDAPN")
 datasets=("Health")
 pred_lengths=(10)
-batch_sizes=(8)
-seq_lengths=(8)  
-
+batch_sizes=(8) 
+seq_lengths=(8)   
 current_dir=$(pwd)
 prior_weight=0.5
 text_emb=12
@@ -118,11 +117,12 @@ do
                         --use_last 1 \
                         --num_clusters 4 \
                         --id_dim 4 \
-                        --cluster_dim 8 \
+                        --cluster_dim 16 \
                         --graph_dim 64 \
-                        --d_model 64
+                        --d_model 128
                 done
             done
         done
     done
-done
+
+
