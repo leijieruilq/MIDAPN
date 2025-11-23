@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# --- 配置区 ---
 GPU=0
 root_path=./data
 seed=2025
