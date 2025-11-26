@@ -13,22 +13,22 @@ python -u run.py \
   --seq_len 96 \
   --pred_len 96 \
   --layers 1 \
-  --num_clusters 64 \
-  --id_dim 32 \
+  --num_clusters 32 \
+  --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 256 \
+  --d_model 512 \
   --enc_in 862 \
   --batch_size 16 \
   --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 70 \
-  --patience 10 \
+  --patience 3 \
   --itr 1 \
   --gpu 0 \
   --loss 'MAE' \
   --lradj cosine \
-
+  
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
