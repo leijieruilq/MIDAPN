@@ -172,7 +172,7 @@ do
                         --seed $seed \
                         --prior_weight $prior_weight \
                         --save_name result_${model_name}_${dataset}_bert \
-                        --llm_model BERT-XL \
+                        --llm_model BERT \
                         --huggingface_token NA \
                         --train_epochs 10 \
                         --patience 5 \
