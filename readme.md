@@ -1,4 +1,4 @@
-# (MIDAPN) Identity Unlocks the Prism: A Graph-Informed Automatic Spectral Convolution Framework for Multimedia Time Series Forecasting
+# (MIDAPN) Identity Guides the Prism: Unlocking Multimedia Time Series Forecasting via A Graph-Informed Automatic Spectral Network
 
 ### Datasets
 
