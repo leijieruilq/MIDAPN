@@ -286,14 +286,14 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                         local_files_only=False
                     )
             elif configs.llm_model == 'BERT':
-                self.bert_config = BertConfig.from_pretrained('/data/ljr/keyan/MM-TSFlib-main/cache/bert-base-uncased')
+                self.bert_config = BertConfig.from_pretrained('/your_path/cache/bert-base-uncased')
 
                 self.bert_config.num_hidden_layers = configs.llm_layers
                 self.bert_config.output_attentions = True
                 self.bert_config.output_hidden_states = True
                 try:
                     self.llm_model = BertModel.from_pretrained(
-                        '/data/ljr/keyan/MM-TSFlib-main/cache/bert-base-uncased',
+                        '/your_path/cache/bert-base-uncased',
                         trust_remote_code=True,
                         local_files_only=True,
                         config=self.bert_config,
@@ -302,7 +302,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                 except:  # downloads model from HF is not already done
                     print("Local model files not found. Attempting to download...")
                     self.llm_model = BertModel.from_pretrained(
-                        '/data/ljr/keyan/MM-TSFlib-main/cache/bert-base-uncased',
+                        '/your_path/cache/bert-base-uncased',
                         trust_remote_code=True,
                         local_files_only=False,
                         config=self.bert_config,
@@ -310,7 +310,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
                 try:
                     self.tokenizer = BertTokenizer.from_pretrained(
-                        '/data/ljr/keyan/MM-TSFlib-main/cache/bert-base-uncased',
+                        '/your_path/cache/bert-base-uncased',
                         trust_remote_code=True,
                         local_files_only=True
                     )
@@ -318,7 +318,7 @@ class Exp_Long_Term_Forecast(Exp_Basic):
                 except:  # downloads model from HF is not already done
                     print("Local tokenizer files not found. Atempting to download them..")
                     self.tokenizer = BertTokenizer.from_pretrained(
-                        '/data/ljr/keyan/MM-TSFlib-main/cache/bert-base-uncased',
+                        '/your_path/cache/bert-base-uncased',
                         trust_remote_code=True,
                         local_files_only=False
                     )
