@@ -1,4 +1,4 @@
-# (MIDAPN) Identity Guides the Prism: Unlocking Multimedia Time Series Forecasting via A Graph-Informed Automatic Spectral Network
+# (MIDAPN) MIDAPN: Identity-Aware Prism Network for Multimedia Time Series Forecasting Under A Narrative-Flow Perspective
 
 ### Datasets
 
