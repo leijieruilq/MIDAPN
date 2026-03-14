@@ -114,13 +114,13 @@ python -u run.py \
   --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 128 \
   --enc_in 7 \
   --batch_size 16 \
   --learning_rate 0.0003 \
   --des 'Exp' \
-  --train_epochs 10 \
-  --patience 10 \
+  --train_epochs 20 \
+  --patience 20 \
   --itr 1 \
   --gpu 0 \
   --lradj cosine \
