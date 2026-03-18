@@ -14,13 +14,13 @@ python -u run.py \
   --seq_len 96 \
   --pred_len 96 \
   --layers 1 \
-  --num_clusters 64 \
+  --num_clusters 3 \
   --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 128 \
   --enc_in 7 \
-  --batch_size 16 \
+  --batch_size 32 \
   --learning_rate 0.0003 \
   --des 'Exp' \
   --train_epochs 10 \
@@ -45,13 +45,13 @@ python -u run.py \
   --seq_len 96 \
   --pred_len 192 \
   --layers 1 \
-  --num_clusters 64 \
+  --num_clusters 3 \
   --id_dim 8 \
   --cluster_dim 8 \
   --graph_dim 32 \
-  --d_model 512 \
+  --d_model 128 \
   --enc_in 7 \
-  --batch_size 16 \
+  --batch_size 32 \
   --learning_rate 0.0003 \
   --des 'Exp' \
   --train_epochs 10 \
