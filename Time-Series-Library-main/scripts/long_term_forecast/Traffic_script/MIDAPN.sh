@@ -1,6 +1,6 @@
 export CUDA_VISIBLE_DEVICES=0
 
-model_name=MIDAPN
+model_name=MIDAPN_t
 python -u run.py \
   --task_name long_term_forecast \
   --is_training 1 \
@@ -12,22 +12,22 @@ python -u run.py \
   --features M \
   --seq_len 96 \
   --pred_len 96 \
-  --layers 1 \
-  --num_clusters 32 \
-  --id_dim 8 \
-  --cluster_dim 8 \
-  --graph_dim 32 \
+  --layers 3 \
+  --num_clusters 64 \
+  --id_dim 32 \
+  --cluster_dim 16 \
+  --graph_dim 64 \
   --d_model 512 \
   --enc_in 862 \
   --batch_size 16 \
   --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 70 \
-  --patience 3 \
+  --patience 15 \
   --itr 1 \
   --gpu 0 \
   --loss 'MAE' \
-  --lradj cosine \
+  --lradj cosine
   
 python -u run.py \
   --task_name long_term_forecast \
@@ -40,22 +40,22 @@ python -u run.py \
   --features M \
   --seq_len 96 \
   --pred_len 192 \
-  --layers 1 \
+  --layers 3 \
   --num_clusters 64 \
   --id_dim 32 \
-  --cluster_dim 8 \
-  --graph_dim 32 \
-  --d_model 256 \
+  --cluster_dim 16 \
+  --graph_dim 64 \
+  --d_model 512 \
   --enc_in 862 \
   --batch_size 16 \
   --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 70 \
-  --patience 10 \
+  --patience 15 \
   --itr 1 \
   --gpu 0 \
   --loss 'MAE' \
-  --lradj cosine \
+  --lradj cosine
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -71,19 +71,19 @@ python -u run.py \
   --layers 3 \
   --num_clusters 64 \
   --id_dim 32 \
-  --cluster_dim 8 \
-  --graph_dim 32 \
-  --d_model 256 \
+  --cluster_dim 16 \
+  --graph_dim 64 \
+  --d_model 512 \
   --enc_in 862 \
   --batch_size 16 \
   --learning_rate 0.0005 \
   --des 'Exp' \
   --train_epochs 70 \
-  --patience 10 \
+  --patience 15 \
   --itr 1 \
   --gpu 0 \
   --loss 'MAE' \
-  --lradj cosine \
+  --lradj cosine
 
 python -u run.py \
   --task_name long_term_forecast \
@@ -96,19 +96,19 @@ python -u run.py \
   --features M \
   --seq_len 96 \
   --pred_len 720 \
-  --layers 1 \
+  --layers 3 \
   --num_clusters 64 \
   --id_dim 32 \
-  --cluster_dim 8 \
-  --graph_dim 32 \
-  --d_model 256 \
+  --cluster_dim 16 \
+  --graph_dim 64 \
+  --d_model 512 \
   --enc_in 862 \
   --batch_size 16 \
   --learning_rate 0.0005 \
   --des 'Exp' \
-  --train_epochs 70 \
-  --patience 10 \
+  --train_epochs 100 \
+  --patience 15 \
   --itr 1 \
   --gpu 0 \
   --loss 'MAE' \
-  --lradj cosine \
+  --lradj cosine
