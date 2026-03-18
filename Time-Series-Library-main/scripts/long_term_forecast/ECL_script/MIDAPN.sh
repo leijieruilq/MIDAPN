@@ -13,22 +13,22 @@ python -u run.py \
   --features M \
   --seq_len 96 \
   --pred_len 96 \
-  --layers 1 \
-  --num_clusters 32 \
-  --id_dim 8 \
-  --cluster_dim 8 \
-  --graph_dim 32 \
+  --layers 3 \
+  --num_clusters 64 \
+  --id_dim 32 \
+  --cluster_dim 16 \
+  --graph_dim 64 \
   --d_model 512 \
   --enc_in 321 \
-  --batch_size 32 \
+  --batch_size 16 \
   --learning_rate 0.001 \
   --des 'Exp' \
-  --train_epochs 10 \
-  --patience 10 \
+  --train_epochs 15 \
+  --patience 15 \
   --itr 1 \
   --gpu 0 \
-  --lradj "type1" \
   --loss 'MAE' \
+  --lradj cosine
 #   # --weight_decay 0.0003 \
 
 python -u run.py \
