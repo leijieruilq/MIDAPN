@@ -1,4 +1,4 @@
-# MIDAPN: Identity-Aware Prism Network for Multimedia Time Series Forecasting Under Narrative-Flows
+# Identity-Aware Prism for Media-Bridged Time Series Forecasting: Linking Multivariate and Narrative-Flows
 
 ### Datasets
 
