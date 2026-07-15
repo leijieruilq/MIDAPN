@@ -1,4 +1,4 @@
-# Identity-Aware Prism for Media-Bridged Time Series Forecasting: Linking Multivariate and Narrative-Flows
+# Perceiving Identity, Weaving Scale: Spatiotemporal Modeling for Media-Bridged Time Series Forecasting
 
 ### Datasets
 
