@@ -1,4 +1,4 @@
-# Perceiving Identity, Weaving Scale: Spatiotemporal Modeling for Media-Bridged Time Series Forecasting
+# Revisit Identity, Disperse Spectra: Spatiotemporal Decoupling for Media-Bridged Time Series Forecasting
 
 ### Datasets
 
