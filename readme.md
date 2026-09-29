@@ -1,4 +1,4 @@
-# Revisit Identity, Disperse Spectra: Spatiotemporal Decoupling for Media-Bridged Time Series Forecasting
+# Revisiting Identity and Spectra Dispersion in Media-Bridged Time Series Forecasting: Linking Multivariate Signals and Narrative Flows
 
 ### Datasets
 
