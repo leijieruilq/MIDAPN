@@ -1,23 +1,20 @@
 #!/bin/bash
 set -euo pipefail
 
-# --- 配置区 ---
 GPU=${GPU:-0}
 root_path=${root_path:-./data}
 seed=${seed:-2025}
 
-all_models=("MIDAG_SPCN_t")
+all_models=("MIDAPN_t")
 datasets=("PTF_highfreq")
 
-# --- PTF 已选配置 ---
-# 格式: seq_len pred_len batch_size layers num_clusters id_dim cluster_dim graph_dim d_model
+# seq_len pred_len batch_size layers num_clusters id_dim cluster_dim graph_dim d_model
 run_configs=(
     "8 8 8 1 8 16 16 16 256"
     "8 10 8 1 8 16 16 8 128"
     "8 12 8 1 4 4 4 8 512"
 )
 
-# --- 主循环区 ---
 prior_weight=0.5
 text_emb=12
 
