@@ -7,10 +7,7 @@ GPU=${GPU:-0}
 root_path=${root_path:-./data}
 seed=${seed:-2025}
 all_models=(
-    "MIDAG_SPCN_t"
-    "wo_dff" "wo_g" "wo_sp" "wo_his" "wo_pred" "wo_all"
-    "w_adp" "w_conv" "w_fconv"
-    "wo_sid" "wo_did" "wo_cluster" "wo_cmi"
+    "MIDAPN_t"
 )
 dataset="LEU_highfreq"
 seq_len=8
