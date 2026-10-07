@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-# --- 配置区 ---
 GPU=${GPU:-0}
 root_path=${root_path:-./data}
 seed=${seed:-2025}
