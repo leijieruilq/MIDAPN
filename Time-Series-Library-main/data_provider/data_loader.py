@@ -15,28 +15,6 @@ import warnings
 warnings.filterwarnings('ignore')
 
 class RobustTimeSeries_Dataset_for_all_labels(Dataset):
-    """
-    一个为时序预测任务设计的 Dataset，特别支持分布外泛化能力的评估。
-
-    该 Dataset 可以处理两种情况：
-    1. 常规预测：输入数据不包含异常标签，进行标准时序预测。
-    2. 鲁棒性预测：输入数据包含异常，将异常作为额外特征输入模型，
-       以检验模型在历史数据存在异常时的预测鲁棒性。
-
-    Args:
-        root_path (str): 数据文件所在的根目录。
-        data_filename (str): .npz 数据文件的名称。
-            - .npz 文件应至少包含一个 key: 'data' (shape: [时间步长, 特征数])。
-            - 为支持鲁棒性评估，可选择性包含一个 key: 'anomaly_labels' (shape: [时间步-长, 1])。
-        flag (str): 数据集类型，可选 'train', 'val', 'test'。
-        size (tuple): 一个包含三个整数的元组 (seq_len, label_len, pred_len)。
-            - seq_len: 输入序列的长度。
-            - label_len: 用于解码器输入的序列长度（从输入序列末尾开始）。
-            - pred_len: 需要预测的未来序列长度。
-        scale (bool): 是否对数据进行标准化 (StandardScaler)。
-        train_ratio (float): 训练集所占比例。
-        val_ratio (float): 验证集所占比例。测试集比例将自动计算。
-    """
     def __init__(self, root_path, data_path='data_merged.npz', label_path='anomaly_labels.npy',flag='train',
                  size=None, scale=True,
                  train_ratio=0.6, val_ratio=0.2):
@@ -56,17 +34,14 @@ class RobustTimeSeries_Dataset_for_all_labels(Dataset):
         self.train_ratio = train_ratio
         self.val_ratio = val_ratio
 
-        # 2. 读取和处理数据
         self.__read_data__()
 
     def __read_data__(self):
-        # 构造文件路径并加载 .npz 文件
         file_datapath = os.path.join(self.root_path, self.data_filename)
         label_datapath = os.path.join(self.root_path, self.label_filename)
         label = np.load(label_datapath)
         data = np.load(file_datapath)[:,:,0]
 
-        # 划分训练、验证、测试集
         num_train = int(len(data) * self.train_ratio)
         num_val = int(len(data) * self.val_ratio)
         num_test = len(data) - num_train - num_val
@@ -76,49 +51,41 @@ class RobustTimeSeries_Dataset_for_all_labels(Dataset):
         border1 = border1s[self.set_type]
         border2 = border2s[self.set_type]
 
-        # 数据标准化：仅在训练集上 fit，然后 transform 所有数据集
         if self.scale:
             self.scaler = StandardScaler()
             train_data_for_fit = data[border1s[0]:border2s[0]]
             self.scaler.fit(train_data_for_fit)
             data = self.scaler.transform(data)
 
-        # 提取当前数据集（train/val/test）对应的数据和标签
         self.data_x = data[border1:border2]
         self.anomaly_labels = label[border1:border2]
         
-        # 为了预测，目标 y 也是数据本身
         self.data_y = data[border1:border2]
 
 
     def __getitem__(self, index):
-        # 定义滑动窗口的起止位置
         s_begin = index
         s_end = s_begin + self.seq_len
         r_begin = s_end - self.label_len
         r_end = r_begin + self.label_len + self.pred_len
 
-        # 提取输入序列和目标序列
         seq_x = self.data_x[s_begin:s_end]
         seq_y = self.data_y[r_begin:r_end]
 
-        # 提取目标序列对应的异常标签（用于评估）
         anomaly_y = self.anomaly_labels[r_begin:r_end]
 
         seq_x_mark = torch.zeros((seq_x.shape[0], 1))
         seq_y_mark = torch.zeros((seq_x.shape[0], 1))
 
-        # 返回PyTorch张量
         return (
             seq_x,
             seq_y,
             seq_x_mark,
             seq_y_mark,
-            anomaly_y# 返回目标段的异常标签用于评估
+            anomaly_y
         )
 
     def __len__(self):
-        # 计算可以生成的样本总数
         return len(self.data_x) - self.seq_len - self.pred_len + 1
 
     def inverse_transform(self, data):
@@ -126,8 +93,6 @@ class RobustTimeSeries_Dataset_for_all_labels(Dataset):
         return original_features
 
 class Dataset_Custom_STPAN(Dataset):
-    # __init__ 和 __read_data__ 方法与上一版完全相同，这里为了简洁省略
-    # ... (Copy the __init__ and __read_data__ methods from the previous answer)
     def __init__(self, root_path, flag='train', size=None,
                  features='S', data_path='ETTh1.csv',
                  target='OT', scale=True, timeenc=0, freq='h',interval=None):
@@ -190,7 +155,6 @@ class Dataset_Custom_STPAN(Dataset):
         r_begin = s_end - self.label_len
         r_end = r_begin + self.label_len + self.pred_len
 
-        # 1. 组装 seq_x (逻辑不变)
         seq_x_values = self.data_values[s_begin:s_end][..., np.newaxis]
         seq_x_tid = self.data_tid[s_begin:s_end]
         seq_x_diw = self.data_diw[s_begin:s_end]
@@ -198,27 +162,19 @@ class Dataset_Custom_STPAN(Dataset):
         seq_x_diw_b = np.tile(seq_x_diw[..., np.newaxis], (1, self.num_nodes))[:, :, np.newaxis]
         seq_x = np.concatenate([seq_x_values, seq_x_tid_b, seq_x_diw_b], axis=-1)
             
-            # --- MODIFIED: 组装 seq_y，使其与 seq_x 逻辑完全一致 ---
-            # 2. 切片获取 seq_y 的所有组件
         seq_y_values = self.data_values[r_begin:r_end][..., np.newaxis] # Shape: [T_out, N, 1]
         seq_y_tid = self.data_tid[r_begin:r_end]                         # Shape: [T_out]
         seq_y_diw = self.data_diw[r_begin:r_end]                         # Shape: [T_out]
 
-            # 3. 广播并拼接 seq_y 的组件
         seq_y_tid_b = np.tile(seq_y_tid[..., np.newaxis], (1, self.num_nodes))[:, :, np.newaxis] # Shape: [T_out, N, 1]
         seq_y_diw_b = np.tile(seq_y_diw[..., np.newaxis], (1, self.num_nodes))[:, :, np.newaxis] # Shape: [T_out, N, 1]
         seq_y = np.concatenate([seq_y_values, seq_y_tid_b, seq_y_diw_b], axis=-1)
         return seq_x, seq_y
 
-    # __len__ 和 inverse_transform 方法与上一版完全相同，这里也省略
     def __len__(self):
         return len(self.data_values) - self.seq_len - self.pred_len + 1
 
     def inverse_transform(self, data):
-        # 即使 seq_y 包含了时间特征，逆向转换也只关心第一个数值特征
-        # data 的形状是 [Batch, T, N, C_out=3]
-        
-        # 我们只对第一个channel（数值）进行逆向转换
         values_only = data[..., 0] # Shape: [Batch, T, N]
 
         num_nodes = values_only.shape[-1] 
