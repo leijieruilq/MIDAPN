@@ -2,7 +2,7 @@
 
 ### Datasets
 
->> "raw_files.zip" contains 14 multivariate time series datasets while "TaTS-main/data" displays 8 multimodal time series datasets. (Note: NASDQ is updated ! Since LEU, PTF, MSPG are originally consist of dispersed time-series–text pairs. We use Gemini 3.1 Pro to organize.)
+>> "raw_files.zip" contains 14 multivariate time series datasets while "TaTS-main/data" displays 11 multimodal time series datasets. (Note: "multivariate" NASDQ and "multimodal"  LEU/PTF/MSPG are updated ! Since LEU, PTF, MSPG are originally consist of dispersed time-series–text pairs. We use Gemini 3.1 Pro to organize)
 
 ## running programme
 
