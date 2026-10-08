@@ -3,6 +3,9 @@
 ### Introduction
 MIDAPN is a unified spatiotemporal forecasting framework for media-bridged time series, designed to bridge conventional multivariate forecasting and narrative-flow multimodal forecasting within a shared backbone. It addresses two key challenges after media pre-alignment: **heterogeneous variate relation modeling** and **temporal-scale mismatch**. MIDAPN combines a Multimedia Identity-Aware Graph (MIDAG) for identity-aware cross-variate/cross-media dependency learning with Spectral Prism Convolution (SPConv) for scale-adaptive temporal modeling, enabling broad compatibility across diverse forecasting settings (**13 multivariate and 12 multimodal time series datasets**).
 
+### Pipeline
+
+
 
 ### Datasets
 
