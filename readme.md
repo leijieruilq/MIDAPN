@@ -33,8 +33,11 @@ MIDAPN is a unified spatiotemporal forecasting framework for media-bridged time 
 <img width="4713" height="1794" alt="KDD图_02" src="https://github.com/user-attachments/assets/e20d7dee-91e5-411e-97ae-ba923c3a3380" />
 
 ## Pipeline
+MIDAPN adopts a unified encode–project–refine pipeline for both multivariate and multimodal forecasting. Historical representations are extracted by TSEM-his, projected to future horizons by CI-MLP, and further refined by TSEM-pred; multimodal inputs are first aligned into time-series form before entering the same backbone.
 <img width="4867" height="1620" alt="KDD图_03" src="https://github.com/user-attachments/assets/dd9f53e9-4449-4f8d-8441-5e8c969743f5" />
 
+## Core Design
+TSEM consists of three core modules: DFF for frequency-aware projection, MIDAG for identity-aware relation modeling, and SPConv for adaptive multi-scale temporal reconstruction.
 <img width="5195" height="1158" alt="KDD图_04" src="https://github.com/user-attachments/assets/f653c9e8-ce52-4bb0-b83a-405900679ff5" />
 
 ## Datasets
