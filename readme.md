@@ -25,6 +25,7 @@ MIDAPN is a unified spatiotemporal forecasting framework for media-bridged time 
 > >(3) The results are in the corresponding midag_spcn.log file.
 
 ## Motivation
+(a) Revisit variate identity through essence, behavior, and commonality. (b) Draw inspiration from spectrum dispersion for hierarchical multi-scale temporal learning automatically. (c) Validate the resulting design through cross-media comparison across multivariate and multimodal forecasting.
 <img width="4713" height="1794" alt="KDD图_02" src="https://github.com/user-attachments/assets/e20d7dee-91e5-411e-97ae-ba923c3a3380" />
 
 ## Pipeline
