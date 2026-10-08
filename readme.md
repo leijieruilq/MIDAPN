@@ -13,7 +13,7 @@ MIDAPN is a unified spatiotemporal forecasting framework for media-bridged time 
 
 ### Dataset Statistics
 
-We evaluate MIDAPN on **25 real-world datasets**, comprising **13 multivariate** and **12 text-assisted multimodal** benchmarks. These datasets span diverse domains, including **energy, transportation, environment, economics, agriculture, and public health and society**.
+We evaluate MIDAPN on **25 real-world datasets**, comprising **13 multivariate** and **12 text-assisted multimodal** benchmarks. These datasets span diverse domains, including **energy, weather, transportation, environment, economics, agriculture, and public health and society**.
 
 The multimodal benchmarks include nine Time-MMD datasets and three multivariate-text datasets (MSPG, LEU, and PTF). Sampling frequencies range from **5-minute to monthly intervals**, enabling evaluation across numerical and narrative-flow forecasting settings.
 
