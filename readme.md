@@ -6,7 +6,7 @@ MIDAPN is a unified spatiotemporal forecasting framework for media-bridged time 
 
 ### Datasets
 
->> "raw_files.zip" contains 14 multivariate time series datasets while "TaTS-main/data" displays 11 multimodal time series datasets. (Note: "multivariate" NASDQ and "multimodal"  LEU/PTF/MSPG are updated ! Since LEU, PTF, MSPG are originally consist of dispersed time-series–text pairs. We use Gemini 3.1 Pro to organize)
+>> we contain 13 multivariate time series datasets in "raw_files.zip" and other new csv,  while "TaTS-main/data" displays 12 multimodal time series datasets. (Note: Since LEU, PTF, MSPG are originally consist of dispersed time-series–text pairs. We use Gemini 3.1 Pro to organize)
 
 ### Dataset Statistics
 
