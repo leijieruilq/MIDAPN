@@ -24,16 +24,15 @@ MIDAPN is a unified spatiotemporal forecasting framework for media-bridged time 
 
 > >(3) The results are in the corresponding midag_spcn.log file.
 
-### Motivation
+## Motivation
 <img width="4713" height="1794" alt="KDD图_02" src="https://github.com/user-attachments/assets/e20d7dee-91e5-411e-97ae-ba923c3a3380" />
 
-### Pipeline
+## Pipeline
 <img width="4867" height="1620" alt="KDD图_03" src="https://github.com/user-attachments/assets/dd9f53e9-4449-4f8d-8441-5e8c969743f5" />
 
 <img width="5195" height="1158" alt="KDD图_04" src="https://github.com/user-attachments/assets/f653c9e8-ce52-4bb0-b83a-405900679ff5" />
 
-
-### Datasets
+## Datasets
 
 >> we contain 13 multivariate time series datasets in "raw_files.zip" and other new csv,  while "TaTS-main/data" displays 12 multimodal time series datasets. (Note: Since LEU, PTF, MSPG are originally consist of dispersed time-series–text pairs. We use Gemini 3.1 Pro to organize)
 
