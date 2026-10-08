@@ -1,10 +1,15 @@
-# Revisiting Identity and Spectra Dispersion in Media-Bridged Time Series Forecasting: Linking Multivariate Signals and Narrative Flows
+<img width="4867" height="1620" alt="KDD图_03" src="https://github.com/user-attachments/assets/6f5f9fdc-a66f-4685-a8ee-ac1445c47e70" /># Revisiting Identity and Spectra Dispersion in Media-Bridged Time Series Forecasting: Linking Multivariate Signals and Narrative Flows
 
 ### Introduction
 MIDAPN is a unified spatiotemporal forecasting framework for media-bridged time series, designed to bridge conventional multivariate forecasting and narrative-flow multimodal forecasting within a shared backbone. It addresses two key challenges after media pre-alignment: **heterogeneous variate relation modeling** and **temporal-scale mismatch**. MIDAPN combines a Multimedia Identity-Aware Graph (MIDAG) for identity-aware cross-variate/cross-media dependency learning with Spectral Prism Convolution (SPConv) for scale-adaptive temporal modeling, enabling broad compatibility across diverse forecasting settings (**13 multivariate and 12 multimodal time series datasets**).
 
-### Pipeline
+### Motivation
+<img width="4713" height="1794" alt="KDD图_02" src="https://github.com/user-attachments/assets/e20d7dee-91e5-411e-97ae-ba923c3a3380" />
 
+### Pipeline
+<img width="4867" height="1620" alt="KDD图_03" src="https://github.com/user-attachments/assets/dd9f53e9-4449-4f8d-8441-5e8c969743f5" />
+
+<img width="5195" height="1158" alt="KDD图_04" src="https://github.com/user-attachments/assets/f653c9e8-ce52-4bb0-b83a-405900679ff5" />
 
 
 ### Datasets
