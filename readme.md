@@ -8,6 +8,36 @@ MIDAPN is a unified spatiotemporal forecasting framework for media-bridged time 
 
 >> "raw_files.zip" contains 14 multivariate time series datasets while "TaTS-main/data" displays 11 multimodal time series datasets. (Note: "multivariate" NASDQ and "multimodal"  LEU/PTF/MSPG are updated ! Since LEU, PTF, MSPG are originally consist of dispersed time-series–text pairs. We use Gemini 3.1 Pro to organize)
 
+### Dataset Statistics
+
+| Datasets | Variates | Timestamps | Frequency |
+|:---|:---:|---:|:---:|
+| ETTm2 | 7 | 69680 | 15mins |
+| ETTh2 | 7 | 17420 | 1h |
+| Flight | 7 | 26304 | 1h |
+| Weather | 21 | 52696 | 10mins |
+| Traffic | 862 | 17544 | 1h |
+| Electricity | 321 | 26304 | 1h |
+| Solar | 137 | 35040 | 15mins |
+| PEMS03 | 358 | 26208 | 5mins |
+| PEMS04 | 307 | 16992 | 5mins |
+| PEMS07 | 883 | 28224 | 5mins |
+| PEMS08 | 170 | 17856 | 5mins |
+| ILI | 7 | 966 | 1week |
+| NASDAQ | 12 | 3914 | 1day |
+| Agriculture | 1 (time series) + 12 (text dim) | 496 | Monthly |
+| Climate | 1 (time series) + 12 (text dim) | 496 | Monthly |
+| Economy | 1 (time series) + 12 (text dim) | 423 | Monthly |
+| Energy | 1 (time series) + 12 (text dim) | 1479 | Weekly |
+| Environment | 1 (time series) + 12 (text dim) | 11102 | Daily |
+| Health | 1 (time series) + 12 (text dim) | 1389 | Weekly |
+| Security | 1 (time series) + 12 (text dim) | 297 | Monthly |
+| SocialGood | 1 (time series) + 12 (text dim) | 900 | Monthly |
+| Traffic | 1 (time series) + 12 (text dim) | 531 | Monthly |
+| MSPG | 27 (time series) + 12 (text dim) | 37536 | 15mins |
+| LEU | 16 (time series) + 12 (text dim) | 34848 | 30mins |
+| PTF | 32 (time series) + 12 (text dim) | 8640 | 1h |
+
 ## Running programme
 
 ### Running style for "multivariate" scenario:
