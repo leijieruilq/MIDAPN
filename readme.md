@@ -77,3 +77,12 @@ The multimodal benchmarks include nine Time-MMD datasets and three multivariate-
 | MSPG | 27 (time series) + 12 (text dim) | 37536 | 15mins |
 | LEU | 16 (time series) + 12 (text dim) | 34848 | 30mins |
 | PTF | 32 (time series) + 12 (text dim) | 8640 | 1h |
+
+### Results
+**Comparison with 16 SOTA TSF models**
+<img width="1044" height="280" alt="{268AC97D-29FB-4704-9BC0-42A222710D6F}" src="https://github.com/user-attachments/assets/3f5ca316-c35a-4d21-86cb-751e2fb5e485" />
+**Long-Context Comparison with 14 SOTA TSFM and PLM-fused models**
+<img width="1167" height="205" alt="{964F34B1-9112-440B-93C6-F02A9D48B0F7}" src="https://github.com/user-attachments/assets/e15cb835-5bdd-4b1e-bcf8-910c307c9943" />
+
+
+
